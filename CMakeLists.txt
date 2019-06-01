@@ -10,6 +10,7 @@ ENABLE_TESTING()
 
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -Wall")
 SET (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Werror -ggdb -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC")
+SET (CMAKE_EXE_LINKER_FLAGS  "-lboost_thread -lboost_filesystem  -lboost_system")
 
 # Set default build type
 IF( NOT CMAKE_BUILD_TYPE )
@@ -55,7 +56,7 @@ if (OPENMP_FOUND)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
-FIND_PACKAGE( Boost COMPONENTS thread system REQUIRED )
+FIND_PACKAGE( Boost COMPONENTS thread system filesystem REQUIRED )
 INCLUDE_DIRECTORIES("${Boost_INCLUDE_DIRS}")
 FIND_PACKAGE( ITPP REQUIRED )
 INCLUDE_DIRECTORIES("${ITPP_INCLUDE_DIR}")
@@ -116,6 +117,7 @@ INCLUDE_DIRECTORIES("${CURSES_INCLUDE_DIR}")
 # Add version information to build
 SET( ${PROJECT_NAME}_MAJOR_VERSION 1 )
 SET( ${PROJECT_NAME}_MINOR_VERSION 1 )
+add_definitions("-lboost_thread -lboost_filesystem  -lboost_system")
 SET( ${PROJECT_NAME}_PATCH_LEVEL 0 )
 CONFIGURE_FILE (
   "${PROJECT_SOURCE_DIR}/include/common.h.in"

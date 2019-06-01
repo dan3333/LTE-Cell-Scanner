@@ -9,13 +9,18 @@
 
 #MESSAGE("BLADERF_DIR set to ${BLADERF_DIR}" )
 
+add_definitions("-fpermissive")
+
+SET(CMAKE_EXE_LINKER_FLAGS  "-lboost_thread -lboost_filesystem  -lboost_system")
+
 FIND_PATH(BLADERF_INCLUDE_DIR libbladeRF.h
   ${LIBBLADERF_DIR}/include
   /usr/local/include/libbladeRF
+  /root/pybombs/bladeRF/include/
 )
 
 FIND_LIBRARY(BLADERF_LIBRARY
-  NAMES bladeRF
+  NAMES bladeRF libboost
   PATHS ${LIBBLADERF_DIR}/libs
   "${LIBBLADERF_DIR}\\win32\\lib"
   /usr/pkgs64/lib
@@ -23,6 +28,7 @@ FIND_LIBRARY(BLADERF_LIBRARY
   /usr/lib/x86_64-linux-gnu/
   /usr/lib
   /usr/local/lib
+  /root/pybombs/bladeRF/lib/
   NO_DEFAULT_PATH
 )
 
